@@ -10,7 +10,7 @@ rule_files:
   - "node-exporter.rules"
   - "alertmanager.rules"
   - "prometheus.rules"
-  # - "second.rules"
+  - "blackbox.rules"
 
 scrape_configs:
   - job_name: 'LinuxProdSec'
@@ -107,7 +107,7 @@ scrape_configs:
         labels:
           instance: 'nut_monitor'
           env: 'prod'
-  - job_name: 'blackbox'
+  - job_name: 'blackbox_http'
     metrics_path: /probe
     params:
       module: [http_2xx]  
@@ -124,3 +124,80 @@ scrape_configs:
         target_label: instance
       - target_label: __address__
         replacement: blackbox:9115  
+  - job_name: 'blackbox_icmp'
+    metrics_path: /probe
+    params:
+      module: [icmp]  
+    static_configs:
+      - targets:
+        - 192.168.1.1
+        - 192.168.1.4
+        - 192.168.1.6
+        - 192.168.1.7
+        labels:
+          env: 'prod'
+      - targets:
+        - 192.168.1.204
+        labels:
+          instance: 'esxinuc1'   
+          env: 'prod'
+      - targets:
+        - 192.168.1.205
+        labels:
+          instance: 'esxinuc2'
+          env: 'prod'
+      - targets:
+        - 192.168.1.206
+        labels:
+          instance: 'esxinuc3'
+          env: 'prod'
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox:9115 
+  - job_name: 'procurve1800-24g'
+    static_configs:
+      - targets:
+        - 192.168.1.4  # SNMP device.
+        labels:
+          env: 'prod'
+    metrics_path: /snmp
+    params:
+      auth: [public_v2]
+      module: [if_mib]
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: snmp:9116  # The SNMP exporter's real hostname:port.
+  - job_name: 'unifi'
+    static_configs:
+      - targets:
+        - 192.168.1.1
+        - 192.168.1.6
+        - 192.168.1.7
+        labels:
+          env: 'prod'
+    metrics_path: /snmp
+    params:
+      auth: [public_v2]
+      module: [ubiquiti_unifi]
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: snmp:9116  # The SNMP exporter's real hostname:port.=
+  - job_name: 'snmp_exporter'
+    static_configs:
+      - targets: ['snmp:9116']
+  - job_name: 'unifipoller'
+    scrape_interval: 30s
+    static_configs:
+    - targets: ['localhost:9130']

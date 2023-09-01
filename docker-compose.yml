@@ -3,6 +3,7 @@ version: '3.8'
 volumes:
     prometheus_data: {}
     grafana_data: {}
+    loki_data: {}
 
 services:
 
@@ -47,6 +48,7 @@ services:
       - ./grafana/dashboards:/etc/grafana/provisioning/dashboards
       - ./grafana/datasources:/etc/grafana/provisioning/datasources
       - grafana_data:/var/lib/grafana
+    restart: always
 
   vmware-exporter:
     image: pryorda/vmware_exporter:latest
@@ -55,7 +57,7 @@ services:
     environment:
       VSPHERE_HOST: "vcsa-1.local.lan"
       VSPHERE_USER: "administrator@vsphere.local"
-      ### VSPHERE_PASSWORD: ""
+      VSPHERE_PASSWORD: "B0Cadence&"
       VSPHERE_IGNORE_SSL: "True"
       # VSPHERE_COLLECT_VMS: "False"
       # VSPHERE_COLLECT_VMGUESTS: "False"
@@ -75,5 +77,34 @@ services:
     ports:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
-    networks:
-      - loki
+    volumes:
+      - ./loki/local-config.yaml:/etc/loki/local-config.yaml
+      - loki_data:/loki
+
+  snmp:
+    image: quay.io/prometheus/snmp-exporter:latest
+    volumes:
+      - ./snmp:/etc/snmp_exporter
+    ports:
+      - 9116:9116
+      - 116:116/udp
+    restart: always
+    command: --config.file=/etc/snmp_exporter/snmp.yml
+
+  rsyslog:
+    image: rsyslog/syslog_appliance_alpine:latest
+    ports:
+      - 514:514
+      - 514:514/udp
+    volumes:
+      - ./rsyslog/rsyslog.conf:/config/rsyslog.conf
+    environment:
+      RSYSLOG_CONF: "/config/rsyslog.conf"
+    restart: always
+
+  promtail:
+    image: grafana/promtail:latest
+    volumes:
+      - ./promtail/promtail-syslog.yml:/etc/promtail/promtail-syslog.yml
+#      - /var/log:/var/log
+    command: -config.file=/etc/promtail/promtail-syslog.yml

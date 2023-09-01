@@ -1,0 +1,14 @@
+groups:
+  - name: blackbox.rules
+    rules:
+    - alert: ProbeDown
+      # Condition for alerting
+      expr: probe_success{env="prod"} == 0 
+      for: 5m
+      # Annotation - additional informational labels to store more information
+      annotations:
+        title: 'Instance {{ $labels.instance }} down'
+        description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.'
+      # Labels - additional labels to be attached to the alert
+      labels:
+        severity: 'critical'
