@@ -1,6 +1,6 @@
 ## How to install
 
- Create prom cert files from vault in ./prometheus/cert
+ Create prom cert files from vault in ./prometheus/
     - ca.crt
     - tls.crt
     - tls.key

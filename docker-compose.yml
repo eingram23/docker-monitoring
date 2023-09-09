@@ -11,9 +11,6 @@ services:
     image: prom/prometheus:latest
     volumes:
       - ./prometheus/:/etc/prometheus/
-      - ./prometheus/cert/ca.crt:/etc/prometheus/ca.crt
-      - ./prometheus/cert/tls.crt:/etc/prometheus/tls.crt
-      - ./prometheus/cert/tls.key:/etc/prometheus/tls.key
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
