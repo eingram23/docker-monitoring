@@ -201,3 +201,7 @@ scrape_configs:
     scrape_interval: 30s
     static_configs:
     - targets: ['localhost:9130']
+  - job_name: 'unifipoller'
+    scrape_interval: 30s
+    static_configs:
+    - targets: ['localhost:9130']

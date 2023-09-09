@@ -29,6 +29,8 @@ services:
 
   alertmanager:
     image: prom/alertmanager
+    depends_on:
+      - prometheus
     ports:
       - 9093:9093
     volumes:
@@ -52,6 +54,8 @@ services:
 
   vmware-exporter:
     image: pryorda/vmware_exporter:latest
+    depends_on:
+      - prometheus
     ports:
       - "9272:9272"
     environment:
@@ -93,6 +97,8 @@ services:
 
   rsyslog:
     image: rsyslog/syslog_appliance_alpine:latest
+    depends_on:
+      - loki
     ports:
       - 514:514
       - 514:514/udp
@@ -104,7 +110,18 @@ services:
 
   promtail:
     image: grafana/promtail:latest
+    depends_on:
+      - rsyslog
     volumes:
       - ./promtail/promtail-syslog.yml:/etc/promtail/promtail-syslog.yml
 #      - /var/log:/var/log
     command: -config.file=/etc/promtail/promtail-syslog.yml
+
+  unpoller:
+    restart: always
+    image: ghcr.io/unpoller/unpoller:latest
+    depends_on:
+      - grafana
+      - prometheus
+    volumes:
+      - ./unpoller/up.conf:/etc/unpoller/up.conf
