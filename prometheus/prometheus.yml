@@ -75,13 +75,13 @@ scrape_configs:
       - targets: ['HL-CLUS16-R2.homelab.local:9182']
         labels:
           instance: 'hl-clus16-r2'
-  - job_name: 'WindowsProd'
-    scrape_interval: 60s
-    static_configs:
-      - targets: ['HL-DC1.homelab.local:9182']
-        labels:
-          instance: 'hl-dc1'
-          env: 'prod'
+  # - job_name: 'WindowsProd'
+  #   scrape_interval: 60s
+  #   static_configs:
+  #     - targets: ['HL-DC1.homelab.local:9182']
+  #       labels:
+  #         instance: 'hl-dc1'
+  #         env: 'prod'
   - job_name: 'LinuxDev'
     scrape_interval: 60s
     static_configs:
