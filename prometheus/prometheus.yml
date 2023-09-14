@@ -13,7 +13,7 @@ rule_files:
   - "blackbox.rules"
 
 scrape_configs:
-  - job_name: 'LinuxProdSec'
+  - job_name: 'LinuxSec'
     scheme: https
     tls_config:
       ca_file: /etc/prometheus/ca.crt
@@ -23,19 +23,18 @@ scrape_configs:
     static_configs:
       - targets: ['yc-appsrv1.ycdisp.net:9100']
         labels:
-          instance: 'yc-appsrv1'
           env: 'prod'
-  - job_name: 'LinuxDevSec'
-    scheme: https
-    tls_config:
-      ca_file: /etc/prometheus/ca.crt
-      cert_file: /etc/prometheus/tls.crt
-      key_file: /etc/prometheus/tls.key
+      - targets: ['yc-appsrv1-dev.local.lan:9100']
+  - job_name: 'Linux'
     scrape_interval: 60s
     static_configs:
-      - targets: ['yc-appsrv1-dev.local.lan:9100']
+      - targets: ['podhost1.local.lan:9100']
+      - targets: ['homenas.local.lan:9100']
         labels:
-          instance: 'yc-appsrv1-dev'
+          env: 'prod'
+      - targets: ['homeassistant.local.lan:9100']
+        labels:
+          env: 'prod'
   - job_name: 'VMware'
     metrics_path: '/metrics'
     scrape_interval: 60s
@@ -51,54 +50,6 @@ scrape_configs:
       - targets: ['alertmanager:9093']
         labels:
           instance: 'alertmanager'
-  - job_name: 'WindowsDev'
-    scrape_interval: 60s
-    static_configs:
-      - targets: ['HL-SRV1.homelab.local:9182']
-        labels:
-          instance: 'hl-srv1'
-      - targets: ['HL-SQL1.homelab.local:9182']
-        labels:
-          instance: 'hl-sql1'
-      - targets: ['HL-FSW.homelab.local:9182']
-        labels:
-          instance: 'hl-fsw'
-      - targets: ['HL-CLUS16-1.homelab.local:9182']
-        labels:
-          instance: 'hl-clus16-1'
-      - targets: ['HL-CLUS16-2.homelab.local:9182']
-        labels:
-          instance: 'hl-clus16-2'
-      - targets: ['HL-CLUS16-R1.homelab.local:9182']
-        labels:
-          instance: 'hl-clus16-r1'
-      - targets: ['HL-CLUS16-R2.homelab.local:9182']
-        labels:
-          instance: 'hl-clus16-r2'
-  # - job_name: 'WindowsProd'
-  #   scrape_interval: 60s
-  #   static_configs:
-  #     - targets: ['HL-DC1.homelab.local:9182']
-  #       labels:
-  #         instance: 'hl-dc1'
-  #         env: 'prod'
-  - job_name: 'LinuxDev'
-    scrape_interval: 60s
-    static_configs:
-      - targets: ['podhost1.local.lan:9100']
-        labels:
-          instance: 'podhost1'
-  - job_name: 'LinuxProd'
-    scrape_interval: 60s
-    static_configs:
-      - targets: ['homenas.local.lan:9100']
-        labels:
-          instance: 'homenas'
-          env: 'prod'
-      - targets: ['homeassistant.local.lan:9100']
-        labels:
-          instance: 'homeassistant'
-          env: 'prod'
   - job_name: 'UPS-Nut'
     metrics_path: /ups_metrics
     scrape_interval: 60s
@@ -197,10 +148,6 @@ scrape_configs:
   - job_name: 'snmp_exporter'
     static_configs:
       - targets: ['snmp:9116']
-  - job_name: 'unifipoller'
-    scrape_interval: 30s
-    static_configs:
-    - targets: ['localhost:9130']
   - job_name: 'unifipoller'
     scrape_interval: 30s
     static_configs:
