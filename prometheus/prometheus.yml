@@ -113,8 +113,6 @@ scrape_configs:
     static_configs:
       - targets:
         - 192.168.1.4  # SNMP device.
-        labels:
-          env: 'prod'
     metrics_path: /snmp
     params:
       auth: [public_v2]
@@ -132,8 +130,6 @@ scrape_configs:
         - 192.168.1.1
         - 192.168.1.6
         - 192.168.1.7
-        labels:
-          env: 'prod'
     metrics_path: /snmp
     params:
       auth: [public_v2]
