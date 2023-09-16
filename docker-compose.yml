@@ -1,9 +1,9 @@
 version: '3.8'
 
 volumes:
-    prometheus_data: {}
-    grafana_data: {}
-    loki_data: {}
+  prometheus_data: {}
+  grafana_data: {}
+  loki_data: {}
 
 services:
 
@@ -23,7 +23,7 @@ services:
       - '--web.enable-remote-write-receiver'
     ports:
       - 9090:9090
-    restart: always
+    restart: unless-stopped
 
   alertmanager:
     image: prom/alertmanager
@@ -33,7 +33,7 @@ services:
       - 9093:9093
     volumes:
       - ./alertmanager/:/etc/alertmanager/
-    restart: always
+    restart: unless-stopped
     command:
       - '--config.file=/etc/alertmanager/alertmanager.yml'
       - '--storage.path=/alertmanager'
@@ -48,7 +48,7 @@ services:
       - ./grafana/dashboards:/etc/grafana/provisioning/dashboards
       - ./grafana/datasources:/etc/grafana/provisioning/datasources
       - grafana_data:/var/lib/grafana
-    restart: always
+    restart: unless-stopped
 
   vmware-exporter:
     image: pryorda/vmware_exporter:latest
@@ -63,7 +63,7 @@ services:
       VSPHERE_IGNORE_SSL: "True"
       # VSPHERE_COLLECT_VMS: "False"
       # VSPHERE_COLLECT_VMGUESTS: "False"
-    restart: always
+    restart: unless-stopped
 
   blackbox:
     image: prom/blackbox-exporter:latest
@@ -73,6 +73,7 @@ services:
       - --config.file=/etc/blackbox/blackbox.yml
     volumes:
       - ./blackbox/blackbox.yml:/etc/blackbox/blackbox.yml
+    restart: unless-stopped
 
   loki:
     image: grafana/loki:latest
@@ -82,6 +83,7 @@ services:
     volumes:
       - ./loki/local-config.yaml:/etc/loki/local-config.yaml
       - loki_data:/loki
+    restart: unless-stopped
 
   snmp:
     image: quay.io/prometheus/snmp-exporter:latest
@@ -90,8 +92,8 @@ services:
     ports:
       - 9116:9116
       - 116:116/udp
-    restart: always
     command: --config.file=/etc/snmp_exporter/snmp.yml
+    restart: unless-stopped
 
   rsyslog:
     image: rsyslog/syslog_appliance_alpine:latest
@@ -104,7 +106,7 @@ services:
       - ./rsyslog/rsyslog.conf:/config/rsyslog.conf
     environment:
       RSYSLOG_CONF: "/config/rsyslog.conf"
-    restart: always
+    restart: unless-stopped
 
   promtail:
     image: grafana/promtail:latest
@@ -114,12 +116,13 @@ services:
       - ./promtail/promtail-syslog.yml:/etc/promtail/promtail-syslog.yml
 #      - /var/log:/var/log
     command: -config.file=/etc/promtail/promtail-syslog.yml
+    restart: unless-stopped
 
   unpoller:
-    restart: always
     image: ghcr.io/unpoller/unpoller:latest
     depends_on:
       - grafana
       - prometheus
     volumes:
       - ./unpoller/up.conf:/etc/unpoller/up.conf
+    restart: unless-stopped
