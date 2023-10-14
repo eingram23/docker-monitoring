@@ -84,7 +84,7 @@ services:
     command: -config.file=/etc/loki/local-config.yaml
     volumes:
       - ./loki/local-config.yaml:/etc/loki/local-config.yaml
-      - ./loki/rules.yml:/loki/rules/homelab/rules.yml
+      - ./loki/rules.yml:/tmp/loki/rules/fake/rules.yml
       - loki_data:/loki
     restart: unless-stopped
 
