@@ -1,0 +1,12 @@
+groups:
+- name: loki.rules
+  rules:
+  - alert: RainforestIntegrationDown
+    expr: |
+      count_over_time({container_name="homeassistant"} |= "issued command while not connected" [5m] ) > 0
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: Rainforest integration down on (instance {{ $labels.instance }})
+      description: "Rainforest integration down on (instance {{ $labels.instance }})"
