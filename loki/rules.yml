@@ -10,3 +10,13 @@ groups:
     annotations:
       summary: Rainforest integration down on (instance {{ $labels.instance }})
       description: "Rainforest integration down on (instance {{ $labels.instance }})"
+  - alert: MyQ Test
+    expr: |
+      count_over_time({container_name="homeassistant"} |= "[pymyq.api] Authentication failed" [5m] ) > 0
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: MyQ integration down on (instance {{ $labels.instance }})
+      description: "MyQ integration down on (instance {{ $labels.instance }})"
+
