@@ -23,4 +23,5 @@ receivers:
   - name: email-alert
     email_configs:
       - to: edward.ingram23@gmail.com 
+        send_resolved: true
   - name: empty
