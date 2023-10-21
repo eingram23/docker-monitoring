@@ -4,19 +4,28 @@ groups:
   - alert: RainforestIntegrationDown
     expr: |
       count_over_time({container_name="homeassistant"} |= "issued command while not connected" [5m] ) > 0
-    for: 5m
+    for: 1m
     labels:
       severity: critical
     annotations:
       summary: Rainforest integration down on (instance {{ $labels.instance }})
       description: "Rainforest integration down on (instance {{ $labels.instance }})"
-  - alert: MyQ Test
+  - alert: MyQIntegrationDown
     expr: |
       count_over_time({container_name="homeassistant"} |= "[pymyq.api] Authentication failed" [5m] ) > 0
-    for: 5m
+    for: 1m
     labels:
       severity: critical
     annotations:
       summary: MyQ integration down on (instance {{ $labels.instance }})
       description: "MyQ integration down on (instance {{ $labels.instance }})"
+  - alert: TigerBridgeCapExceeded
+    expr: |
+      count_over_time({channel="Tiger Bridge"} |= "Cannot upload files, storage cap exceededd" [5m] ) > 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: Tiger Bridge Storage Cap Exceeded
+      description: "{{ message }}"
 
