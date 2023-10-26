@@ -21,11 +21,19 @@ groups:
       description: "MyQ integration down on (instance {{ $labels.instance }})"
   - alert: TigerBridgeCapExceeded
     expr: |
-      count_over_time({channel="Tiger Bridge"} |= "Cannot upload files, storage cap exceededd" [5m] ) > 0
+      count_over_time({channel="Tiger Bridge"} |= "Cannot upload files, storage cap exceeded" [5m] ) > 0
     for: 1m
     labels:
       severity: critical
     annotations:
       summary: Tiger Bridge Storage Cap Exceeded
       description: "{{ message }}"
-
+  - alert: Test
+    expr: |
+      sum(rate({host="Veeam.local.lan"} |= `Grafana Agent` | pattern `<message>` [5m])) by (message) > 0
+    for: 0m
+    labels:
+      severity: critical
+    annotations:
+      summary: Test log extraaction
+      message: '{{`"{{ slice $labels.message 0 500 }}"`}}'
