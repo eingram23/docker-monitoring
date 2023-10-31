@@ -27,7 +27,7 @@ groups:
       severity: critical
     annotations:
       summary: Tiger Bridge Storage Cap Exceeded
-      description: "{{ message }}"
+      description: "Tiger Bridge Storage Cap Exceeded"
   - alert: Test
     expr: |
       sum(rate({host="Veeam.local.lan"} |= `TestTest` | pattern `<message>` [5m])) by (message) > 0
