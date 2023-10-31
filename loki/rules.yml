@@ -3,8 +3,8 @@ groups:
   rules:
   - alert: RainforestIntegrationDown
     expr: |
-      count_over_time({container_name="homeassistant"} |= "issued command while not connected" [5m] ) > 0
-    for: 1m
+      sum(rate({container_name="homeassistant"} |= "issued command while not connected" [5m] )) > 0
+    for: 0m
     labels:
       severity: critical
     annotations:
@@ -12,8 +12,8 @@ groups:
       description: "Rainforest integration down on (instance {{ $labels.instance }})"
   - alert: MyQIntegrationDown
     expr: |
-      count_over_time({container_name="homeassistant"} |= "[pymyq.api] Authentication failed" [5m] ) > 0
-    for: 1m
+      sum(rate({container_name="homeassistant"} |= "[pymyq.api] Authentication failed" [5m] )) > 0
+    for: 0m
     labels:
       severity: critical
     annotations:
@@ -21,8 +21,8 @@ groups:
       description: "MyQ integration down on (instance {{ $labels.instance }})"
   - alert: TigerBridgeCapExceeded
     expr: |
-      count_over_time({channel="Tiger Bridge"} |= "Cannot upload files, storage cap exceeded" [5m] ) > 0
-    for: 1m
+      sum(rate({channel="Tiger Bridge"} |= "Cannot upload files, storage cap exceeded" [5m] )) > 0
+    for: 0m
     labels:
       severity: critical
     annotations:
@@ -30,10 +30,10 @@ groups:
       description: "{{ message }}"
   - alert: Test
     expr: |
-      sum(rate({host="Veeam.local.lan"} |= `Grafana Agent` | pattern `<message>` [5m])) by (message) > 0
+      sum(rate({host="Veeam.local.lan"} |= `TestTest` | pattern `<message>` [5m])) by (message) > 0
     for: 0m
     labels:
       severity: critical
     annotations:
       summary: Test log extraaction
-      message: '{{`"{{ slice $labels.message 0 500 }}"`}}'
+      message: '{{ $labels.instance }} {{`"{{ slice $labels.message 0 500 }}"`}}'
