@@ -4,7 +4,7 @@ global:
   smtp_smarthost: smtp.gmail.com:587
   smtp_auth_username: edward.ingram@ycdisp.com
   smtp_auth_identity: edward.ingram@ycdisp.com
-  ### smtp_auth_password: ""
+  smtp_auth_password: $(SMTPPW)
 route:
   receiver: empty
   group_wait: 30s

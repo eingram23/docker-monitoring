@@ -15,7 +15,7 @@ datasources:
     access: proxy
     user: grafana
     secureJsonData:
-      ### password: 
+      password: $(SECRETPW)
     database: grafana
     editable: true
     uid: influx
