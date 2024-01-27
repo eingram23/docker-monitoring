@@ -5,10 +5,6 @@ volumes:
   grafana_data: {}
   loki_data: {}
 
-secrets:
-  vmware_password:
-    file: ~/docker/secrets/vmware_password.txt
-
 services:
   prometheus:
     image: prom/prometheus:latest
@@ -64,11 +60,9 @@ services:
     environment:
       VSPHERE_HOST: "vcsa-1.local.lan"
       VSPHERE_USER: "administrator@vsphere.local"
-      VSPHERE_PASSWORD: /run/secrets/vmware_password
+      # VSPHERE_PASSWORD: ""
       VSPHERE_IGNORE_SSL: "True"
     restart: unless-stopped
-    secrets:
-      - vmware_password
 
   blackbox:
     image: prom/blackbox-exporter:latest
