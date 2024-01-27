@@ -1,15 +1,15 @@
 ## How to install
 
- Create prom cert files from vault in ./prometheus/
-    - ca.crt
-    - tls.crt
-    - tls.key
+ Create secret/cert/prom and secret/cert/rootca cert files from vault in ./prometheus/
+    - ca.crt # rootca
+    - tls.crt # prom
+    - tls.key # prom
 
-Set password on following files:
+Create vmware_password.txt in ./docker/secrets
+
+<!-- Set password on following files:
 ----------------
 ./docker-compose.yml
 ./alertmanager/alertmanager.yml
 ./grafana/datasources/datasources.yaml
-./unpoller/unpoller.conf
-
-docker-compose up -d
+./unpoller/unpoller.conf -->
