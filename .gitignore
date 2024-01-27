@@ -1,4 +1,15 @@
-datasources.yaml
-up.conf
 docker-compose.yml
-alertmanager.yml
+
+# Grafana datasource
+/grafana/datasources/datasources.yaml
+
+# Unifi Unpoller
+/unpoller/up.conf
+
+# Alertmanager
+/alertmanager/alertmanager.yml
+
+# Prometheus certs
+/prometheus/ca.crt
+/prometheus/tls.crt
+/prometheus/tls.key
