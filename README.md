@@ -7,9 +7,9 @@
 
 Create vmware_password.txt in ./docker/secrets
 
-<!-- Set password on following files:
+Set password on following files:
 ----------------
 ./docker-compose.yml
 ./alertmanager/alertmanager.yml
 ./grafana/datasources/datasources.yaml
-./unpoller/unpoller.conf -->
+./unpoller/unpoller.conf
