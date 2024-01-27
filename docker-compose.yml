@@ -5,8 +5,11 @@ volumes:
   grafana_data: {}
   loki_data: {}
 
-services:
+secrets:
+  vmware_password:
+    file: ~/docker/secrets/vmware_password.txt
 
+services:
   prometheus:
     image: prom/prometheus:latest
     volumes:
@@ -26,7 +29,7 @@ services:
     restart: unless-stopped
 
   alertmanager:
-    image: prom/alertmanager
+    image: prom/alertmanager:latest
     depends_on:
       - prometheus
     ports:
@@ -61,11 +64,11 @@ services:
     environment:
       VSPHERE_HOST: "vcsa-1.local.lan"
       VSPHERE_USER: "administrator@vsphere.local"
-      VSPHERE_PASSWORD: "B0Cadence&"
+      VSPHERE_PASSWORD: /run/secrets/vmware_password
       VSPHERE_IGNORE_SSL: "True"
-      # VSPHERE_COLLECT_VMS: "False"
-      # VSPHERE_COLLECT_VMGUESTS: "False"
     restart: unless-stopped
+    secrets:
+      - vmware_password
 
   blackbox:
     image: prom/blackbox-exporter:latest
@@ -79,7 +82,6 @@ services:
 
   loki:
     image: grafana/loki:latest
-    ports:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
     volumes:
@@ -117,7 +119,6 @@ services:
       - rsyslog
     volumes:
       - ./promtail/promtail-syslog.yml:/etc/promtail/promtail-syslog.yml
-#      - /var/log:/var/log
     command: -config.file=/etc/promtail/promtail-syslog.yml
     restart: unless-stopped
 
