@@ -184,29 +184,6 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "hostname"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "hostname"
-              },
-              {
-                "id": "unit",
-                "value": "short"
-              },
-              {
-                "id": "decimals",
-                "value": 2
-              },
-              {
-                "id": "custom.align"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
               "options": "instance"
             },
             "properties": [
@@ -245,7 +222,7 @@
             "properties": [
               {
                 "id": "displayName",
-                "value": "CPU"
+                "value": "CPUs"
               },
               {
                 "id": "unit",
@@ -253,7 +230,7 @@
               },
               {
                 "id": "decimals",
-                "value": 2
+                "value": 0
               },
               {
                 "id": "custom.align"
@@ -332,7 +309,7 @@
             "properties": [
               {
                 "id": "displayName",
-                "value": "test"
+                "value": "C: Usage"
               },
               {
                 "id": "unit",
@@ -381,7 +358,7 @@
             "properties": [
               {
                 "id": "displayName",
-                "value": "test23"
+                "value": "Total Disk Usage"
               },
               {
                 "id": "unit",
@@ -430,7 +407,7 @@
             "properties": [
               {
                 "id": "displayName",
-                "value": "test333"
+                "value": "Processes"
               },
               {
                 "id": "unit",
@@ -453,7 +430,7 @@
             "properties": [
               {
                 "id": "displayName",
-                "value": "test3333"
+                "value": "Services Running"
               },
               {
                 "id": "unit",
@@ -574,7 +551,7 @@
             "properties": [
               {
                 "id": "displayName",
-                "value": "CPU Usage"
+                "value": "CPU Total"
               },
               {
                 "id": "unit",
@@ -586,6 +563,18 @@
               },
               {
                 "id": "custom.align"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "agent_hostname"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Hostname"
               }
             ]
           }
@@ -769,7 +758,10 @@
             },
             "includeByName": {},
             "indexByName": {},
-            "renameByName": {}
+            "renameByName": {
+              "env": "Env",
+              "volume": ""
+            }
           }
         }
       ],
