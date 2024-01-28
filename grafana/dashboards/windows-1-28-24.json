@@ -129,7 +129,7 @@
                   {
                     "targetBlank": false,
                     "title": "${__cell_4}",
-                    "url": "/d/Kdh0OoSG/?var-job=${__cell_5}&var-hostname=All&var-instance=${__cell_4}"
+                    "url": "/d/Kdh0OoSG/?var-job=${__cell_3}&var-hostname=All&var-instance=${__cell_1}"
                   }
                 ]
               },
@@ -649,7 +649,7 @@
               "domain": true,
               "fqdn": true,
               "hostname": true,
-              "job": true,
+              "job": false,
               "volume": true
             },
             "includeByName": {},
@@ -3772,7 +3772,7 @@
     "list": [
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "integrations/windows_exporter",
           "value": "integrations/windows_exporter"
         },
@@ -3827,8 +3827,8 @@
       {
         "current": {
           "selected": false,
-          "text": "Veeam:12345",
-          "value": "Veeam:12345"
+          "text": "hl-dc1:12345",
+          "value": "hl-dc1:12345"
         },
         "datasource": {
           "type": "prometheus",
@@ -3854,8 +3854,8 @@
       {
         "current": {
           "selected": false,
-          "text": "Veeam",
-          "value": "Veeam"
+          "text": "hl-dc1",
+          "value": "hl-dc1"
         },
         "datasource": {
           "type": "prometheus",
@@ -3911,6 +3911,6 @@
   "timezone": "",
   "title": "Windows Exporter",
   "uid": "Kdh0OoSG",
-  "version": 3,
+  "version": 4,
   "weekStart": ""
 }
