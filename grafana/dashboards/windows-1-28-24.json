@@ -69,15 +69,15 @@
             "mode": "thresholds"
           },
           "custom": {
-            "align": "auto",
+            "align": "left",
             "cellOptions": {
               "type": "auto"
             },
             "filterable": false,
             "inspect": false,
-            "minWidth": 100
+            "minWidth": 0
           },
-          "decimals": 2,
+          "decimals": 0,
           "displayName": "",
           "mappings": [],
           "thresholds": {
@@ -108,15 +108,8 @@
                 "value": "OS"
               },
               {
-                "id": "unit",
-                "value": "short"
-              },
-              {
-                "id": "decimals",
-                "value": 2
-              },
-              {
-                "id": "custom.align"
+                "id": "custom.minWidth",
+                "value": 150
               }
             ]
           },
@@ -128,15 +121,7 @@
             "properties": [
               {
                 "id": "displayName",
-                "value": "instance"
-              },
-              {
-                "id": "unit",
-                "value": "short"
-              },
-              {
-                "id": "decimals",
-                "value": 2
+                "value": "Instance"
               },
               {
                 "id": "links",
@@ -149,7 +134,11 @@
                 ]
               },
               {
-                "id": "custom.align"
+                "id": "custom.width"
+              },
+              {
+                "id": "custom.minWidth",
+                "value": 150
               }
             ]
           },
@@ -170,9 +159,6 @@
               {
                 "id": "decimals",
                 "value": 0
-              },
-              {
-                "id": "custom.align"
               }
             ]
           },
@@ -189,9 +175,6 @@
               {
                 "id": "unit",
                 "value": "bytes"
-              },
-              {
-                "id": "custom.align"
               }
             ]
           },
@@ -214,9 +197,6 @@
                 "value": {
                   "type": "color-background"
                 }
-              },
-              {
-                "id": "custom.align"
               },
               {
                 "id": "thresholds",
@@ -265,9 +245,6 @@
                 }
               },
               {
-                "id": "custom.align"
-              },
-              {
                 "id": "thresholds",
                 "value": {
                   "mode": "absolute",
@@ -278,60 +255,11 @@
                     },
                     {
                       "color": "rgba(237, 129, 40, 0.89)",
-                      "value": 60
+                      "value": 0.6
                     },
                     {
                       "color": "rgba(245, 54, 54, 0.9)",
-                      "value": 80
-                    }
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Value #F"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Total Disk Usage"
-              },
-              {
-                "id": "unit",
-                "value": "percentunit"
-              },
-              {
-                "id": "decimals",
-                "value": 2
-              },
-              {
-                "id": "custom.cellOptions",
-                "value": {
-                  "type": "color-background"
-                }
-              },
-              {
-                "id": "custom.align"
-              },
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "rgba(50, 172, 45, 0.97)",
-                      "value": null
-                    },
-                    {
-                      "color": "rgba(237, 129, 40, 0.89)",
-                      "value": 60
-                    },
-                    {
-                      "color": "rgba(245, 54, 54, 0.9)",
-                      "value": 80
+                      "value": 0.8
                     }
                   ]
                 }
@@ -354,10 +282,7 @@
               },
               {
                 "id": "decimals",
-                "value": 2
-              },
-              {
-                "id": "custom.align"
+                "value": 0
               }
             ]
           },
@@ -377,10 +302,7 @@
               },
               {
                 "id": "decimals",
-                "value": 2
-              },
-              {
-                "id": "custom.align"
+                "value": 0
               }
             ]
           },
@@ -407,9 +329,6 @@
                 "value": {
                   "type": "color-background"
                 }
-              },
-              {
-                "id": "custom.align"
               },
               {
                 "id": "thresholds",
@@ -454,11 +373,9 @@
               {
                 "id": "custom.cellOptions",
                 "value": {
+                  "mode": "gradient",
                   "type": "color-background"
                 }
-              },
-              {
-                "id": "custom.align"
               },
               {
                 "id": "thresholds",
@@ -470,11 +387,11 @@
                       "value": null
                     },
                     {
-                      "color": "rgba(237, 129, 40, 0.89)",
+                      "color": "#EAB839",
                       "value": 60
                     },
                     {
-                      "color": "rgba(245, 54, 54, 0.9)",
+                      "color": "dark-red",
                       "value": 80
                     }
                   ]
@@ -493,27 +410,62 @@
                 "value": "CPU Total"
               },
               {
-                "id": "unit",
-                "value": "rothz"
-              },
-              {
                 "id": "decimals",
                 "value": 2
               },
               {
-                "id": "custom.align"
+                "id": "unit",
+                "value": "rotmhz"
               }
             ]
           },
           {
             "matcher": {
               "id": "byName",
-              "options": "agent_hostname"
+              "options": "Value #F"
             },
             "properties": [
               {
+                "id": "custom.width"
+              },
+              {
                 "id": "displayName",
-                "value": "Hostname"
+                "value": "Highest Disk Usage"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "gradient",
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 0.6
+                    },
+                    {
+                      "color": "red",
+                      "value": 0.8
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "unit",
+                "value": "percentunit"
+              },
+              {
+                "id": "decimals",
+                "value": 2
               }
             ]
           }
@@ -537,7 +489,8 @@
           ],
           "show": false
         },
-        "showHeader": true
+        "showHeader": true,
+        "sortBy": []
       },
       "pluginVersion": "10.3.1",
       "targets": [
@@ -586,6 +539,7 @@
           },
           "expr": "avg by (instance) (windows_cpu_core_frequency_mhz{job=~\"$job\"})",
           "format": "table",
+          "hide": false,
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -689,14 +643,40 @@
           "options": {
             "excludeByName": {
               "Time": true,
-              "agent_hostname": false,
+              "Value #A": true,
+              "__name__": true,
+              "agent_hostname": true,
               "domain": true,
               "fqdn": true,
               "hostname": true,
-              "job": true
+              "job": true,
+              "volume": true
             },
             "includeByName": {},
-            "indexByName": {},
+            "indexByName": {
+              "Time": 2,
+              "Value #A": 9,
+              "Value #B": 11,
+              "Value #C": 14,
+              "Value #D": 10,
+              "Value #E": 17,
+              "Value #F": 18,
+              "Value #G": 20,
+              "Value #H": 21,
+              "Value #I": 13,
+              "Value #J": 15,
+              "Value #K": 12,
+              "__name__": 19,
+              "agent_hostname": 1,
+              "domain": 3,
+              "env": 4,
+              "fqdn": 5,
+              "hostname": 6,
+              "instance": 0,
+              "job": 7,
+              "product": 8,
+              "volume": 16
+            },
             "renameByName": {
               "env": "Env",
               "volume": ""
@@ -3928,6 +3908,6 @@
   "timezone": "",
   "title": "Windows Exporter",
   "uid": "Kdh0OoSG",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
