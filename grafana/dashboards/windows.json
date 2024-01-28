@@ -1090,6 +1090,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
+          "editorMode": "code",
           "expr": "max by (instance) (irate(windows_net_bytes_sent_total{job=~\"$job\",nic!~'isatap.*|VPN.*'}[2m]))*8",
           "format": "time_series",
           "functions": [],
@@ -1105,12 +1106,13 @@
           "item": {
             "filter": ""
           },
-          "legendFormat": "{{instance}}_上传",
+          "legendFormat": "{{instance}}",
           "metric": "mysql_global_status_questions",
           "mode": 0,
           "options": {
             "showDisabledItems": false
           },
+          "range": true,
           "refId": "B",
           "step": 10
         },
@@ -1122,6 +1124,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
+          "editorMode": "code",
           "expr": "-max by (instance) (irate(windows_net_bytes_received_total{job=~\"$job\",nic!~'isatap.*|VPN.*'}[2m]))*8",
           "format": "time_series",
           "functions": [],
@@ -1137,12 +1140,13 @@
           "item": {
             "filter": ""
           },
-          "legendFormat": "{{instance}}_下载",
+          "legendFormat": "{{instance}}",
           "metric": "mysql_global_status_questions",
           "mode": 0,
           "options": {
             "showDisabledItems": false
           },
+          "range": true,
           "refId": "A",
           "step": 10
         }
@@ -1151,61 +1155,93 @@
       "type": "timeseries"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "读取　　　　写入",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
           "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "Bps",
           "unitScale": true
         },
         "overrides": []
       },
-      "fill": 2,
-      "fillGradient": 0,
       "gridPos": {
         "h": 6,
         "w": 5,
         "x": 15,
         "y": 7
       },
-      "hiddenSeries": false,
       "hideTimeOverride": false,
       "id": 51,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": false,
-        "sort": "max",
-        "sortDesc": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
       "options": {
-        "alertThreshold": true
+        "legend": {
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max"
+          ],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
       },
-      "percentage": false,
       "pluginVersion": "10.3.1",
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
       "targets": [
         {
           "application": {
@@ -1215,6 +1251,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
+          "editorMode": "code",
           "expr": "-max by (instance) (irate(windows_logical_disk_read_bytes_total[2m]))",
           "format": "time_series",
           "functions": [],
@@ -1230,12 +1267,13 @@
           "item": {
             "filter": ""
           },
-          "legendFormat": "{{instance}}_读取",
+          "legendFormat": "{{instance}}",
           "metric": "mysql_global_status_questions",
           "mode": 0,
           "options": {
             "showDisabledItems": false
           },
+          "range": true,
           "refId": "A",
           "step": 20
         },
@@ -1247,6 +1285,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
+          "editorMode": "code",
           "expr": "max by (instance) (irate(windows_logical_disk_write_bytes_total[2m]))",
           "format": "time_series",
           "functions": [],
@@ -1262,106 +1301,108 @@
           "item": {
             "filter": ""
           },
-          "legendFormat": "{{instance}}_写入",
+          "legendFormat": "{{instance}}",
           "metric": "mysql_global_status_questions",
           "mode": 0,
           "options": {
             "showDisabledItems": false
           },
+          "range": true,
           "refId": "B",
           "step": 20
         }
       ],
-      "thresholds": [],
-      "timeRegions": [],
       "title": "Disk Read Bytes",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:5258",
-          "format": "Bps",
-          "label": "读取　　　　写入",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:5259",
-          "format": "iops",
-          "label": "",
-          "logBase": 1,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "type": "prometheus",
         "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "读取　　　　写入",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
           "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "iops",
           "unitScale": true
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 6,
         "w": 4,
         "x": 20,
         "y": 7
       },
-      "hiddenSeries": false,
       "hideTimeOverride": false,
       "id": 55,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": false,
-        "sort": "current",
-        "sortDesc": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
       "links": [],
-      "nullPointMode": "null as zero",
       "options": {
-        "alertThreshold": true
+        "legend": {
+          "calcs": [
+            "mean",
+            "lastNotNull",
+            "max"
+          ],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
       },
-      "percentage": false,
       "pluginVersion": "10.3.1",
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
       "targets": [
         {
           "application": {
@@ -1371,6 +1412,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
+          "editorMode": "code",
           "expr": "-max by (instance) (irate(windows_logical_disk_reads_total[2m]))",
           "format": "time_series",
           "functions": [],
@@ -1386,12 +1428,13 @@
           "item": {
             "filter": ""
           },
-          "legendFormat": "{{instance}}_读取",
+          "legendFormat": "{{instance}}",
           "metric": "mysql_global_status_questions",
           "mode": 0,
           "options": {
             "showDisabledItems": false
           },
+          "range": true,
           "refId": "B",
           "step": 20
         },
@@ -1403,6 +1446,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
+          "editorMode": "code",
           "expr": "max by (instance) (irate(windows_logical_disk_writes_total[2m]))",
           "format": "time_series",
           "functions": [],
@@ -1418,48 +1462,19 @@
           "item": {
             "filter": ""
           },
-          "legendFormat": "{{instance}}_写入",
+          "legendFormat": "{{instance}}",
           "metric": "mysql_global_status_questions",
           "mode": 0,
           "options": {
             "showDisabledItems": false
           },
+          "range": true,
           "refId": "C",
           "step": 20
         }
       ],
-      "thresholds": [],
-      "timeRegions": [],
       "title": "Disk Reads",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:5486",
-          "format": "iops",
-          "label": "读取　　　　写入",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:5487",
-          "format": "short",
-          "logBase": 1,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
+      "type": "timeseries"
     },
     {
       "collapsed": false,
@@ -3976,6 +3991,6 @@
   "timezone": "",
   "title": "Windows Exporter",
   "uid": "Kdh0OoSGz",
-  "version": 11,
+  "version": 12,
   "weekStart": ""
 }
