@@ -116,7 +116,7 @@
           "refId": "A"
         }
       ],
-      "title": "[$show_hostname] $instance",
+      "title": "Summary",
       "type": "row"
     },
     {
@@ -1949,23 +1949,7 @@
           "unit": "short",
           "unitScale": true
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "进程数"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "#B877D9",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
@@ -1996,10 +1980,11 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
+          "editorMode": "code",
           "expr": "windows_os_processes{job=~\"$job\",instance=~\"$instance\"}",
           "instant": false,
           "interval": "",
-          "legendFormat": "进程数",
+          "legendFormat": "processes",
           "refId": "A"
         }
       ],
@@ -2360,10 +2345,12 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
+          "editorMode": "code",
           "expr": "100 - avg(irate(windows_cpu_time_total{job=~\"$job\",instance=~\"$instance\",mode=\"idle\"}[5m]))*100",
           "hide": false,
           "interval": "",
-          "legendFormat": "CPU使用率",
+          "legendFormat": "CPU Usage",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -2587,6 +2574,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
+          "editorMode": "code",
           "expr": "windows_cs_physical_memory_bytes{job=~\"$job\",instance=~\"$instance\"}",
           "format": "time_series",
           "functions": [],
@@ -2602,12 +2590,13 @@
           "item": {
             "filter": ""
           },
-          "legendFormat": "总物理内存",
+          "legendFormat": "Physical memory bytes",
           "metric": "mysql_global_status_questions",
           "mode": 0,
           "options": {
             "showDisabledItems": false
           },
+          "range": true,
           "refId": "B",
           "step": 5
         },
@@ -2619,6 +2608,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
+          "editorMode": "code",
           "expr": "windows_os_physical_memory_free_bytes{job=~\"$job\",instance=~\"$instance\"}",
           "format": "time_series",
           "functions": [],
@@ -2634,12 +2624,13 @@
           "item": {
             "filter": ""
           },
-          "legendFormat": "剩余物理内存",
+          "legendFormat": "Physical memory free bytes",
           "metric": "mysql_global_status_questions",
           "mode": 0,
           "options": {
             "showDisabledItems": false
           },
+          "range": true,
           "refId": "C",
           "step": 5
         },
@@ -2804,6 +2795,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
+          "editorMode": "code",
           "expr": "windows_logical_disk_free_bytes{job=~\"$job\",instance=~\"$instance\"}",
           "format": "time_series",
           "functions": [],
@@ -2819,12 +2811,13 @@
           "item": {
             "filter": ""
           },
-          "legendFormat": "剩余空间 {{volume}}",
+          "legendFormat": "{{volume}}",
           "metric": "mysql_global_status_questions",
           "mode": 0,
           "options": {
             "showDisabledItems": false
           },
+          "range": true,
           "refId": "A",
           "step": 20
         },
@@ -2836,6 +2829,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
+          "editorMode": "code",
           "expr": "windows_logical_disk_size_bytes{job=~\"$job\",instance=~\"$instance\"}",
           "format": "time_series",
           "functions": [],
@@ -2851,12 +2845,13 @@
           "item": {
             "filter": ""
           },
-          "legendFormat": "总空间 {{volume}}",
+          "legendFormat": "{{volume}}",
           "metric": "mysql_global_status_questions",
           "mode": 0,
           "options": {
             "showDisabledItems": false
           },
+          "range": true,
           "refId": "B",
           "step": 20
         }
@@ -2962,6 +2957,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
+          "editorMode": "code",
           "expr": "irate(windows_net_bytes_sent_total{job=~\"$job\",instance=~\"$instance\",nic!~'isatap.*|VPN.*'}[5m])*8>0\r",
           "format": "time_series",
           "functions": [],
@@ -2977,12 +2973,13 @@
           "item": {
             "filter": ""
           },
-          "legendFormat": "{{nic}}-Sent-上传",
+          "legendFormat": "{{nic}}-Sent",
           "metric": "mysql_global_status_questions",
           "mode": 0,
           "options": {
             "showDisabledItems": false
           },
+          "range": true,
           "refId": "B",
           "step": 10
         },
@@ -2994,6 +2991,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
+          "editorMode": "code",
           "expr": "irate(windows_net_bytes_received_total{job=~\"$job\",instance=~\"$instance\",nic!~'isatap.*|VPN.*'}[5m])*8\n",
           "format": "time_series",
           "functions": [],
@@ -3008,12 +3006,13 @@
           "item": {
             "filter": ""
           },
-          "legendFormat": "{{nic}}-Received-下载",
+          "legendFormat": "{{nic}}-Received",
           "metric": "mysql_global_status_questions",
           "mode": 0,
           "options": {
             "showDisabledItems": false
           },
+          "range": true,
           "refId": "A",
           "step": 10
         }
@@ -3947,7 +3946,7 @@
     ]
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {
@@ -3977,6 +3976,6 @@
   "timezone": "",
   "title": "Windows Exporter",
   "uid": "Kdh0OoSGz",
-  "version": 10,
+  "version": 11,
   "weekStart": ""
 }
