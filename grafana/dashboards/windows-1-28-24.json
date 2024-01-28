@@ -128,8 +128,8 @@
                 "value": [
                   {
                     "targetBlank": false,
-                    "title": "${__cell_4}",
-                    "url": "/d/Kdh0OoSG/?var-job=${__cell_3}&var-hostname=All&var-instance=${__cell_1}"
+                    "title": "${__value.raw}",
+                    "url": "/d/Kdh0OoSG/?var-job=${__data.fields[2]}&var-hostname=All&var-instance=${__data.fields[0]}"
                   }
                 ]
               },
@@ -3772,7 +3772,7 @@
     "list": [
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "integrations/windows_exporter",
           "value": "integrations/windows_exporter"
         },
@@ -3911,6 +3911,6 @@
   "timezone": "",
   "title": "Windows Exporter",
   "uid": "Kdh0OoSG",
-  "version": 4,
+  "version": 5,
   "weekStart": ""
 }
