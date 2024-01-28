@@ -129,7 +129,7 @@
                   {
                     "targetBlank": false,
                     "title": "${__cell_4}",
-                    "url": "/d/Kdh0OoSGz/?var-job=${__cell_5}&var-hostname=All&var-instance=${__cell_4}"
+                    "url": "/d/Kdh0OoSG/?var-job=${__cell_5}&var-hostname=All&var-instance=${__cell_4}"
                   }
                 ]
               },
@@ -2225,7 +2225,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2331,7 +2332,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2653,7 +2655,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3878,7 +3881,7 @@
     ]
   },
   "time": {
-    "from": "now-12h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
@@ -3908,6 +3911,6 @@
   "timezone": "",
   "title": "Windows Exporter",
   "uid": "Kdh0OoSG",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }
