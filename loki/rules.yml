@@ -28,6 +28,15 @@ groups:
     annotations:
       summary: Tiger Bridge Storage Cap Exceeded
       description: "Tiger Bridge Storage Cap Exceeded"
+    - alert: TigerBridgeNoSuchFile
+    expr: |
+      sum(rate({channel="Tiger Bridge"} |= "Error: no such file" [5m] )) > 0
+    for: 0m
+    labels:
+      severity: critical
+    annotations:
+      summary: Tiger Bridge Error: No Such File on (hostname {{ $labels.hostname }})
+      description: "Tiger Bridge No Such File Error"
   - alert: IOError
     expr: |
       sum(rate({env="prod"} |= `uncorrectable I/O failure` [5m] )) > 0

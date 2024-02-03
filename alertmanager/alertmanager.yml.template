@@ -9,7 +9,7 @@ route:
   receiver: empty
   group_wait: 30s
   group_interval: 5m
-  repeat_interval: 4h
+  repeat_interval: 1h
   group_by: ['alertname','job']
   routes:
     - matchers:
