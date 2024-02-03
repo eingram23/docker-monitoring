@@ -28,6 +28,15 @@ groups:
     annotations:
       summary: Tiger Bridge Storage Cap Exceeded
       description: "Tiger Bridge Storage Cap Exceeded"
+  - alert: IOError
+    expr: |
+      sum(rate({env="prod"} |= `uncorrectable I/O failure` [5m] )) > 0
+    for: 0m
+    labels:
+      severity: critical
+    annotations:
+      summary: Uncorrectable I/O failure
+      description: "Uncorrectable I/O failure"
   - alert: Test
     expr: |
       sum(rate({host="Veeam.local.lan"} |= `TestTest` | pattern `<message>` [5m])) by (message) > 0
