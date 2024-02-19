@@ -5,6 +5,7 @@
     - tls.crt # prom
     - tls.key # prom
 
+chmod 644 tls.key
 vault kv get -mount=secret -field=crt cert/rootca > ca.crt
 vault kv get -mount=secret -field=crt cert/prom > tls.crt
 vault kv get -mount=secret -field=key cert/prom > tls.key
