@@ -11,12 +11,15 @@ datasources:
       prometheusType: 'Prometheus'
   - name: Influxdb
     type: influxdb
-    url: http://homeassistant.local.lan:8086
+    url: http://homenas.local.lan:8086
     access: proxy
-    user: grafana
     secureJsonData:
-      # password: 
-    database: grafana
+      # token: 
+    jsonData:
+      version: Flux
+      organization: Homelab
+      defaultBucket: HA
+      tlsSkipVerify: true
     editable: true
     uid: influx
   - name: Loki
